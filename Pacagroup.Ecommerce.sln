@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacagroup.Ecommerce.Transversal.Common", "Pacagroup.Ecommerce.Transversal.Common\Pacagroup.Ecommerce.Transversal.Common.csproj", "{E531303C-7072-4D42-84C5-30154A1D5359}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transversal", "Transversal", "{1A1AE468-3CE4-4EF2-A205-FD19D1444C16}"
+	ProjectSection(SolutionItems) = preProject
+		Responsabilidad.txt = Responsabilidad.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infraestructura", "Infraestructura", "{D0BE66DC-48FB-4E1E-B78C-99B322AF6A1F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dominio", "Dominio", "{731CF668-9321-4674-B051-519C2A998306}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servicio", "Servicio", "{94122402-DF24-4BDA-8B98-2359DB27877A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aplicacion", "Aplicacion", "{193BEBE0-8389-4EE8-87F9-3B55CD3CD90C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E531303C-7072-4D42-84C5-30154A1D5359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E531303C-7072-4D42-84C5-30154A1D5359}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E531303C-7072-4D42-84C5-30154A1D5359}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E531303C-7072-4D42-84C5-30154A1D5359}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E531303C-7072-4D42-84C5-30154A1D5359} = {1A1AE468-3CE4-4EF2-A205-FD19D1444C16}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {76CAB988-BFD9-4832-B2B3-92EDCDD7E5F8}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,3 @@
+Capa Transversal (Cross-Cutting Layer): 
+Abarca funcionalidades que afectan a múltiples capas de la aplicación, como la seguridad, 
+el logging, la gestión de excepciones, la configuración, y otros servicios de infraestructura compartidos.
