@@ -4,31 +4,25 @@ using Pacagroup.Ecommerce.Infrastructure.Interface;
 
 namespace Pacagroup.Ecommerce.Domain.Core
 {
-	public class CustomersDomain :ICustomersDomain
+	public class CustomersDomain : ICustomersDomain
 	{
+		private readonly ICustomersRepository _customerRepository;
 
-		public readonly ICustomerRepository _customerRepository;
+		public CustomersDomain(ICustomersRepository customerRepository)
+		{
+			_customerRepository = customerRepository ?? throw new ArgumentNullException(nameof(customerRepository));
+		}
 
+		public bool Insert(Customers customers) => _customerRepository.Insert(customers);
+		public bool Update(Customers customers) => _customerRepository.Update(customers);
+		public bool Delete(string customerId) => _customerRepository.Delete(customerId);
+		public Customers Get(string customerId) => _customerRepository.Get(customerId);
+		public IEnumerable<Customers> GetAll() => _customerRepository.GetAll();
 
-		#region Métodos Síncronos
-
-		public bool Insert(Customers customers) { return this._customerRepository.Insert(customers); }
-		public bool Update(Customers customers) { return this._customerRepository.Update(customers); }
-		public bool Delete(string customersId) { return this._customerRepository.Delete(customersId); }
-		public Customers Get(string customersId) { return this._customerRepository.Get(customersId); }
-		public IEnumerable<Customers> GetAll() { return this._customerRepository.GetAll(); }
-
-		#endregion
-
-		#region Métodos Asíncronos
-
-		public async Task<bool> InsertAsync(Customers customers) { return await this._customerRepository.InsertAsync(customers); }
-		public async Task<bool> UpdateAsync(Customers customers) { return await this._customerRepository.UpdateAsync(customers); }
-		public async Task<bool> DeleteAsync(string customersId) { return await this._customerRepository.DeleteAsync(customersId); }
-		public async Task<Customers> GetAsync(string customersId) { return await this._customerRepository.GetAsync(customersId); }
-		public async Task<IEnumerable<Customers>> GetAllAsync() { return await this._customerRepository.GetAllAsync(); }
-
-		#endregion
-
+		public async Task<bool> InsertAsync(Customers customers) => await _customerRepository.InsertAsync(customers);
+		public async Task<bool> UpdateAsync(Customers customers) => await _customerRepository.UpdateAsync(customers);
+		public async Task<bool> DeleteAsync(string customerId) => await _customerRepository.DeleteAsync(customerId);
+		public async Task<Customers> GetAsync(string customerId) => await _customerRepository.GetAsync(customerId);
+		public async Task<IEnumerable<Customers>> GetAllAsync() => await _customerRepository.GetAllAsync();
 	}
 }
