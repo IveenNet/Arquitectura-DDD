@@ -15,11 +15,14 @@ namespace Pacagroup.Ecommerce.Application.Main
 
 		private readonly ICustomersDomain _customersDomain;
 		private readonly IMapper _mapper;
+		private readonly IAppLogger<CustomersApplication> _logger;
 
-		public CustomersApplication(ICustomersDomain customersDomain, IMapper mapper)
+
+		public CustomersApplication(ICustomersDomain customersDomain, IMapper mapper, IAppLogger<CustomersApplication> appLogger)
 		{
 			this._customersDomain = customersDomain;
 			this._mapper = mapper;
+			_logger = appLogger;
 		}
 
 		#region Métodos Síncronos
@@ -38,6 +41,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 				{
 					response.IsSuccess = true;
 					response.Message = " Registro OK";
+					_logger.LogInformation("Registro OK");
 				}
 
 			}
@@ -139,6 +143,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 				{
 					response.IsSuccess = true;
 					response.Message = "Consulta OK";
+					_logger.LogInformation("Consulta OK");
 				}
 
 			}
@@ -146,6 +151,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 			{
 
 				response.Message = ex.Message;
+				_logger.LogError($"Error al obtenerlos : {ex.Message}");
 
 			}
 
