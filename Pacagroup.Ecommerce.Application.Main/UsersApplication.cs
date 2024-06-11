@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Application.Interface;
+using Pacagroup.Ecommerce.Application.Validatior;
 using Pacagroup.Ecommerce.Domain.Interface;
 using Pacagroup.Ecommerce.Transversal.Common;
 using System;
@@ -17,21 +18,25 @@ namespace Pacagroup.Ecommerce.Application.Main
 		private readonly IUsersDomain _usersDomain;
 		private readonly IMapper _mapper;
 		private readonly IAppLogger<CustomersApplication> _logger;
+		private readonly UsersDtoValidator _validationRules;
 
-		public UsersApplication(IUsersDomain usersDomain, IMapper mapper, IAppLogger<CustomersApplication> appLogger)
+		public UsersApplication(IUsersDomain usersDomain, IMapper mapper, IAppLogger<CustomersApplication> appLogger, UsersDtoValidator validationRules)
 		{
 			_usersDomain = usersDomain;
 			_mapper = mapper;
 			_logger = appLogger;
+			_validationRules = validationRules;
 		}
 
 		public Response<UsersDto> Authenticate(string username, string password)
 		{
 			var response = new Response<UsersDto>();
-
-			if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+			var validation = _validationRules.Validate(new UsersDto() { UserName = username, Password = password });
+			
+			if (!validation.IsValid)
 			{
 				response.Message = "Párametros no pueden ser vacíos";
+				response.Errors = validation.Errors;
 				return response;
 			}
 			try
