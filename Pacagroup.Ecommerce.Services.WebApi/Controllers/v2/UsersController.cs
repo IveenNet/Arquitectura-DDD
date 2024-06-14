@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -10,14 +11,15 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
+namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
 {
 	/// <summary>
 	/// Controlador para la autenticación de usuarios.
 	/// </summary>
 	[Authorize]
-	[Route("api/[controller]")]
+	[Route("api/v{version:apiVersion}/[controller]")]
 	[ApiController]
+	[ApiVersion("2.0")]
 	public class UsersController : ControllerBase
 	{
 		private readonly IUsersApplication _usersApplication;
@@ -40,7 +42,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
 		/// <param name="usersDto">DTO del usuario a autenticar.</param>
 		/// <returns>Respuesta con el token de autenticación si es exitoso.</returns>
 		[AllowAnonymous]
-		[HttpPost("authenticate", Name = "AuthenticateUser")]
+		[HttpPost("authenticate", Name = "AuthenticateUserV2")]
 		public IActionResult Authenticate([FromBody] UsersDto usersDto)
 		{
 			var response = _usersApplication.Authenticate(usersDto.UserName, usersDto.Password);

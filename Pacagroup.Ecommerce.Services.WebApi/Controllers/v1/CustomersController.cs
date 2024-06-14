@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Application.Interface;
 
-namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
+namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
 {
 	[Authorize]
-	[Route("api/[controller]")]
+	[Route("api/v{version:apiVersion}/[controller]")]
 	[ApiController]
+	//[ApiVersion("1.0")]
+	[ApiVersion("1.0", Deprecated = true)]
 	public class CustomersController : ControllerBase
 	{
 		private readonly ICustomersApplication _customersApplication;
@@ -24,7 +27,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
 		/// </summary>
 		/// <param name="customersDto">The customer data.</param>
 		/// <returns>Action result indicating success or failure.</returns>
-		[HttpPost(Name = "InsertCustomer")]
+		[HttpPost(Name = "InsertCustomerV1")]
 		[ProducesResponseType(typeof(CustomersDto), 200)]
 		[ProducesResponseType(400)]
 		public IActionResult Insert([FromBody] CustomersDto customersDto)
@@ -49,7 +52,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
 		/// </summary>
 		/// <param name="customersDto">The customer data.</param>
 		/// <returns>Action result indicating success or failure.</returns>
-		[HttpPut("UpdateCustomer", Name = "UpdateCustomer")]
+		[HttpPut("UpdateCustomer", Name = "UpdateCustomerV1")]
 		[ProducesResponseType(typeof(CustomersDto), 200)]
 		[ProducesResponseType(400)]
 		public IActionResult Update([FromBody] CustomersDto customersDto)
@@ -74,7 +77,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
 		/// </summary>
 		/// <param name="customerId">The customer ID.</param>
 		/// <returns>Action result indicating success or failure.</returns>
-		[HttpDelete("DeleteCustomer/{customerId}", Name = "DeleteCustomer")]
+		[HttpDelete("DeleteCustomer/{customerId}", Name = "DeleteCustomerV1")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
 		public IActionResult Delete(string customerId)
@@ -99,7 +102,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
 		/// </summary>
 		/// <param name="customerId">The customer ID.</param>
 		/// <returns>The customer data.</returns>
-		[HttpGet("GetCustomer/{customerId}", Name = "GetCustomerById")]
+		[HttpGet("GetCustomer/{customerId}", Name = "GetCustomerByIdV1")]
 		[ProducesResponseType(typeof(CustomersDto), 200)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(404)]
@@ -129,7 +132,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
 		/// Gets all customers.
 		/// </summary>
 		/// <returns>A list of customers.</returns>
-		[HttpGet("GetAllCustomers", Name = "GetAllCustomers")]
+		[HttpGet("GetAllCustomers", Name = "GetAllCustomersV1")]
 		[ProducesResponseType(typeof(IEnumerable<CustomersDto>), 200)]
 		[ProducesResponseType(400)]
 		public IActionResult GetAll()
@@ -153,7 +156,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
 		/// </summary>
 		/// <param name="customersDto">The customer data.</param>
 		/// <returns>Action result indicating success or failure.</returns>
-		[HttpPost("InsertCustomerAsync", Name = "InsertCustomerAsync")]
+		[HttpPost("InsertCustomerAsync", Name = "InsertCustomerAsyncV1")]
 		[ProducesResponseType(typeof(CustomersDto), 200)]
 		[ProducesResponseType(400)]
 		public async Task<IActionResult> InsertAsync([FromBody] CustomersDto customersDto)
@@ -178,7 +181,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
 		/// </summary>
 		/// <param name="customersDto">The customer data.</param>
 		/// <returns>Action result indicating success or failure.</returns>
-		[HttpPut("UpdateCustomerAsync", Name = "UpdateCustomerAsync")]
+		[HttpPut("UpdateCustomerAsync", Name = "UpdateCustomerAsyncV1")]
 		[ProducesResponseType(typeof(CustomersDto), 200)]
 		[ProducesResponseType(400)]
 		public async Task<IActionResult> UpdateAsync([FromBody] CustomersDto customersDto)
@@ -203,7 +206,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
 		/// </summary>
 		/// <param name="customerId">The customer ID.</param>
 		/// <returns>Action result indicating success or failure.</returns>
-		[HttpDelete("DeleteCustomerAsync/{customerId}", Name = "DeleteCustomerAsync")]
+		[HttpDelete("DeleteCustomerAsync/{customerId}", Name = "DeleteCustomerAsyncV1")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
 		public async Task<IActionResult> DeleteAsync(string customerId)
@@ -228,7 +231,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
 		/// </summary>
 		/// <param name="customerId">The customer ID.</param>
 		/// <returns>The customer data.</returns>
-		[HttpGet("GetCustomerAsync/{customerId}", Name = "GetCustomerAsyncById")]
+		[HttpGet("GetCustomerAsync/{customerId}", Name = "GetCustomerAsyncByIdV1")]
 		[ProducesResponseType(typeof(CustomersDto), 200)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(404)]
@@ -258,7 +261,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
 		/// Gets all customers asynchronously.
 		/// </summary>
 		/// <returns>A list of customers.</returns>
-		[HttpGet("GetAllCustomersAsync", Name = "GetAllCustomersAsync")]
+		[HttpGet("GetAllCustomersAsync", Name = "GetAllCustomersAsyncV1")]
 		[ProducesResponseType(typeof(IEnumerable<CustomersDto>), 200)]
 		[ProducesResponseType(400)]
 		public async Task<IActionResult> GetAllAsync()

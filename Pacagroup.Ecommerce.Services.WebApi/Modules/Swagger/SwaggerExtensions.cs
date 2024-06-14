@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger
@@ -8,40 +10,34 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger
 	{
 		public static IServiceCollection AddSwagger(this IServiceCollection services)
 		{
+
+			services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+
 			// Register the Swagger generator, defining 1 or more Swagger documents
 			services.AddSwaggerGen(c =>
 			{
-				c.SwaggerDoc("v1", new OpenApiInfo
-				{
-					Version = "v1",
-					Title = "Pacagroup Technology Services API Market",
-					Description = "A simple example ASP.NET Core Web API",
-					TermsOfService = new Uri("https://example.com/terms"),
-					Contact = new OpenApiContact
-					{
-						Name = "Ivan David Medina Vallez",
-						Email = "iveen98@gmail.com",
-						Url = new Uri("https://pacagroup.com")
-					},
-					License = new OpenApiLicense
-					{
-						Name = "Use under LICX",
-						Url = new Uri("https://example.com/license")
-					}
-				});
-
-				// Define the security scheme
-				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+				var securityScheme = new OpenApiSecurityScheme
 				{
 					Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
 					Name = "Authorization",
 					In = ParameterLocation.Header,
-					Type = SecuritySchemeType.ApiKey,
-					Scheme = "Bearer"
-				});
+					Type = SecuritySchemeType.Http,
+					Scheme = "Bearer",
+					BearerFormat = "JWT",
+					Reference = new OpenApiReference
+					{
+
+						Id = JwtBearerDefaults.AuthenticationScheme,
+						Type = ReferenceType.SecurityScheme
+
+					}
+				};
+
+				// Define the security scheme
+				c.AddSecurityDefinition(securityScheme.Reference.Id,securityScheme);
 
 				// Require the security scheme
-				c.AddSecurityRequirement(new OpenApiSecurityRequirement
+				/*c.AddSecurityRequirement(new OpenApiSecurityRequirement
 				{
 					{
 						new OpenApiSecurityScheme
@@ -54,6 +50,13 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger
 						},
 						new string[] {}
 					}
+				});*/
+
+				c.AddSecurityRequirement(new OpenApiSecurityRequirement
+				{
+
+					{securityScheme,  new List<string> { } }
+
 				});
 
 				// Set the comments path for the Swagger JSON and UI
