@@ -3,7 +3,7 @@ using Pacagroup.Ecommerce.Domain.Entity;
 
 namespace Pacagroup.Ecommerce.Infrastructure.Interface
 {
-	public interface ICustomerRepository
+	public interface ICustomersRepository
 	{
 
 		#region Métodos Síncronos

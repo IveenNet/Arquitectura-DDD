@@ -6,9 +6,9 @@ using Dapper;
 using System.Data;
 using System.Threading.Tasks;
 
-namespace Pacagroup.Ecommerce.Infrastructure.Respository
+namespace Pacagroup.Ecommerce.Infrastructure.Repository
 {
-	public class CustomersRepository : ICustomerRepository
+	public class CustomersRepository : ICustomersRepository
 	{
 
 		private readonly IConnectionFactory _connectionFactory;
