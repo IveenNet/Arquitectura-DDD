@@ -1,22 +1,20 @@
-﻿using System;
+﻿using Dapper;
 using Pacagroup.Ecommerce.Domain.Entity;
+using Pacagroup.Ecommerce.Infrastructure.Data;
 using Pacagroup.Ecommerce.Infrastructure.Interface;
-using Pacagroup.Ecommerce.Transversal.Common;
-using Dapper;
 using System.Data;
-using System.Threading.Tasks;
 
 namespace Pacagroup.Ecommerce.Infrastructure.Repository
 {
 	public class CustomersRepository : ICustomersRepository
 	{
 
-		private readonly IConnectionFactory _connectionFactory;
+		private readonly DapperContext _dapperContext;
 
 
-		public CustomersRepository(IConnectionFactory connectionFactory)
+		public CustomersRepository(DapperContext dapperContext)
 		{
-			this._connectionFactory = connectionFactory;
+			this._dapperContext = dapperContext;
 		}
 
 
@@ -24,7 +22,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
 		public bool Insert(Customers customers)
 		{
-			using (var connection = this._connectionFactory.GetConnection)
+			using (var connection = this._dapperContext.CreateConnection())
 			{
 
 				var query = "CustomersInsert";
@@ -50,7 +48,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
 		public bool Update(Customers customers)
 		{
-			using (var connection = this._connectionFactory.GetConnection)
+			using (var connection = this._dapperContext.CreateConnection())
 			{
 
 				var query = "CustomersUpdate";
@@ -76,7 +74,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
 		public bool Delete(string customersId)
 		{
-			using (var connection = this._connectionFactory.GetConnection)
+			using (var connection = this._dapperContext.CreateConnection())
 			{
 
 				var query = "CustomersDelete";
@@ -92,7 +90,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
 		public Customers Get(string customersId)
 		{
-			using (var connection = this._connectionFactory.GetConnection)
+			using (var connection = this._dapperContext.CreateConnection())
 			{
 
 				var query = "CustomersGetById";
@@ -108,7 +106,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
 		public IEnumerable<Customers> GetAll()
 		{
-			using (var connection = this._connectionFactory.GetConnection)
+			using (var connection = this._dapperContext.CreateConnection())
 			{
 
 				var query = "CustomersList";
@@ -119,6 +117,36 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 			}
 		}
 
+		public IEnumerable<Customers> GetAllWithPagination(int pageNumber, int pageSize)
+		{
+			using (var connection = this._dapperContext.CreateConnection())
+			{
+
+				var query = "CustomersListWithPagination";
+				var parameters = new DynamicParameters();
+				parameters.Add("PageNumber", pageNumber);
+				parameters.Add("PageSize", pageSize);
+
+
+				var customers = connection.Query<Customers>(query, param: parameters, commandType: CommandType.StoredProcedure);
+
+				return customers;
+			}
+		}
+
+		public int Count()
+		{
+			using (var connection = this._dapperContext.CreateConnection())
+			{
+
+				var query = "Select Count(*) from Customers";
+
+				var count = connection.ExecuteScalar<int>(query, commandType: CommandType.Text);
+
+				return count;
+			}
+		}
+
 		#endregion
 
 
@@ -126,7 +154,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
 		public async Task<bool> InsertAsync(Customers customers)
 		{
-			using (var connection = this._connectionFactory.GetConnection)
+			using (var connection = this._dapperContext.CreateConnection())
 			{
 
 				var query = "CustomersInsert";
@@ -152,7 +180,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
 		public async Task<bool> UpdateAsync(Customers customers)
 		{
-			using (var connection = this._connectionFactory.GetConnection)
+			using (var connection = this._dapperContext.CreateConnection())
 			{
 
 				var query = "CustomersInsert";
@@ -178,7 +206,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
 		public async Task<bool> DeleteAsync(string customersId)
 		{
-			using (var connection = this._connectionFactory.GetConnection)
+			using (var connection = this._dapperContext.CreateConnection())
 			{
 
 				var query = "CustomersDelete";
@@ -194,7 +222,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
 		public async Task<Customers> GetAsync(string customersId)
 		{
-			using (var connection = this._connectionFactory.GetConnection)
+			using (var connection = this._dapperContext.CreateConnection())
 			{
 
 				var query = "CustomersGetById";
@@ -210,14 +238,42 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
 		public async Task<IEnumerable<Customers>> GetAllAsync()
 		{
-			using (var connection = this._connectionFactory.GetConnection)
+			using (var connection = this._dapperContext.CreateConnection())
 			{
-
 				var query = "CustomersList";
 
 				var customers = await connection.QueryAsync<Customers>(query, commandType: CommandType.StoredProcedure);
 
 				return customers;
+			}
+		}
+
+		public async Task<IEnumerable<Customers>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
+		{
+			using (var connection = this._dapperContext.CreateConnection())
+			{
+				var query = "CustomersListWithPagination";
+				var parameters = new DynamicParameters();
+				parameters.Add("PageNumber", pageNumber);
+				parameters.Add("PageSize", pageSize);
+
+
+				var customers = connection.Query<Customers>(query, param: parameters, commandType: CommandType.StoredProcedure);
+
+				return customers;
+			}
+		}
+
+		public async Task<int> CountAsync()
+		{
+			using (var connection = this._dapperContext.CreateConnection())
+			{
+
+				var query = "Select Count(*) from Customers";
+
+				var count = connection.ExecuteScalar<int>(query, commandType: CommandType.Text);
+
+				return count;
 			}
 		}
 

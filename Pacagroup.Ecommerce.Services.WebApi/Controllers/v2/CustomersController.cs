@@ -151,6 +151,27 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
 			return BadRequest(response.Message);
 		}
 
+		/// <summary>
+		/// Gets all customers but now with Pagination.
+		/// </summary>
+		/// <param name="pageNumber">Number of the page.</param>
+		/// <param name="pageSize">Number of customers to display.</param>
+		/// <returns>A list of customers.</returns>
+		[HttpGet("GetAllCustomersWithPagination", Name = "GetAllCustomersWithPaginationV2")]
+		[ProducesResponseType(typeof(IEnumerable<CustomersDto>), 200)]
+		[ProducesResponseType(400)]
+		public IActionResult GetAllWithPagination([FromQuery] int pageNumber, [FromQuery] int pageSize)
+		{
+			var response = _customersApplication.GetAllWithPagination(pageNumber, pageSize);
+
+			if (response.IsSuccess)
+			{
+				return Ok(response);
+			}
+
+			return BadRequest(response.Message);
+		}
+
 		#endregion
 
 		#region Métodos Asíncronos
@@ -276,6 +297,27 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
 		public async Task<IActionResult> GetAllAsync()
 		{
 			var response = await _customersApplication.GetAllAsync();
+
+			if (response.IsSuccess)
+			{
+				return Ok(response);
+			}
+
+			return BadRequest(response.Message);
+		}
+
+		/// <summary>
+		/// Gets all customers but now with Pagination.
+		/// </summary>
+		/// <param name="pageNumber">Number of the page.</param>
+		/// <param name="pageSize">Number of customers to display.</param>
+		/// <returns>A list of customers.</returns>
+		[HttpGet("GetAllCustomersWithPaginationAsync", Name = "GetAllCustomersWithPaginationAsyncV2")]
+		[ProducesResponseType(typeof(IEnumerable<CustomersDto>), 200)]
+		[ProducesResponseType(400)]
+		public async Task<IActionResult> GetAllWithPaginationAsync([FromQuery] int pageNumber, [FromQuery] int pageSize)
+		{
+			var response = await _customersApplication.GetAllWithPaginationAsync(pageNumber, pageSize);
 
 			if (response.IsSuccess)
 			{

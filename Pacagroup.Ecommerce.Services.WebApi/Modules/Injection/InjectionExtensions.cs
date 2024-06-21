@@ -17,7 +17,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Injection
 		{
 
 			services.AddSingleton<IConfiguration>(configuration);
-			services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+			services.AddSingleton<DapperContext>();
 			services.AddScoped<ICustomersApplication, CustomersApplication>();
 			services.AddScoped<ICustomersDomain, CustomersDomain>();
 			services.AddScoped<ICustomersRepository, CustomersRepository>();
@@ -25,6 +25,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Injection
 			services.AddScoped<IUsersDomain, UsersDomain>();
 			services.AddScoped<IUsersRepository, UsersRepository>();
 			services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
+			services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 			return services;
 		}

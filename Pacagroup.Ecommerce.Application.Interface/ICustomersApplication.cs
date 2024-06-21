@@ -14,6 +14,7 @@ namespace Pacagroup.Ecommerce.Application.Interface
 		public Response<bool> Delete(string customersId);
 		public Response<CustomersDto> Get(string customersId);
 		public Response<IEnumerable<CustomersDto>> GetAll();
+		public ResponsePagination<IEnumerable<CustomersDto>> GetAllWithPagination(int pageNumber, int pageSize);
 
 		#endregion
 
@@ -24,6 +25,7 @@ namespace Pacagroup.Ecommerce.Application.Interface
 		public Task<Response<bool>> DeleteAsync(string customersId);
 		public Task<Response<CustomersDto>> GetAsync(string customersId);
 		public Task<Response<IEnumerable<CustomersDto>>> GetAllAsync();
+		public Task<ResponsePagination<IEnumerable<CustomersDto>>> GetAllWithPaginationAsync(int pageNumber, int pageSize);
 
 		#endregion
 
