@@ -18,14 +18,23 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Injection
 
 			services.AddSingleton<IConfiguration>(configuration);
 			services.AddSingleton<DapperContext>();
+			services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
+			services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+			//Customers
 			services.AddScoped<ICustomersApplication, CustomersApplication>();
 			services.AddScoped<ICustomersDomain, CustomersDomain>();
 			services.AddScoped<ICustomersRepository, CustomersRepository>();
+
+			//Users
 			services.AddScoped<IUsersApplication, UsersApplication>();
 			services.AddScoped<IUsersDomain, UsersDomain>();
 			services.AddScoped<IUsersRepository, UsersRepository>();
-			services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
-			services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+			//Categories
+			services.AddScoped<ICategoriesApplication, CategoriesApplication>();
+			services.AddScoped<ICategoriesDomain, CategoriesDomain>();
+			services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 
 			return services;
 		}
