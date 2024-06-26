@@ -11,7 +11,7 @@ namespace Pacagroup.Ecommerce.Transversal.Mapper
 			/*En esto caso solo con esto funcionaría ya que las clases contienen lo mismos campos
 			 * CreateMap<Customers, CustomersDto>().ReverseMap();
 			 */
-			CreateMap<Customers, CustomersDto>()
+			CreateMap<Customer, CustomerDto>()
 				.ForMember(destination => destination.CustomerId, source => source.MapFrom(src => src.CustomerId))
 				.ForMember(destination => destination.CompanyName, source => source.MapFrom(src => src.CompanyName))
 				.ForMember(destination => destination.ContactName, source => source.MapFrom(src => src.ContactName))
@@ -24,9 +24,9 @@ namespace Pacagroup.Ecommerce.Transversal.Mapper
 				.ForMember(destination => destination.Phone, source => source.MapFrom(src => src.Phone))
 				.ForMember(destination => destination.Fax, source => source.MapFrom(src => src.Fax)).ReverseMap();
 
-			CreateMap<Users, UsersDto>().ReverseMap();
+			CreateMap<Users, UserDto>().ReverseMap();
 
-			CreateMap<Categories, CategoriesDto>().ReverseMap();
+			CreateMap<Category, CategoryDto>().ReverseMap();
 		}
 	}
 }

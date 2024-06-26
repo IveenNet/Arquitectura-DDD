@@ -1,6 +1,6 @@
 ﻿namespace Pacagroup.Ecommerce.Application.DTO
 {
-	public class CategoriesDto
+	public class CategoryDto
 	{
 		public int Id { get; set; }
 		public string CategoryName { get; set; }

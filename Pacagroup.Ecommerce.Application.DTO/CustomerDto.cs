@@ -1,6 +1,6 @@
-﻿namespace Pacagroup.Ecommerce.Domain.Entity
+﻿namespace Pacagroup.Ecommerce.Application.DTO
 {
-	public class Customers
+	public class CustomerDto
 	{
 
 		public string CustomerId { get; set; }

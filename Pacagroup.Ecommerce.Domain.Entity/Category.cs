@@ -1,6 +1,6 @@
 ﻿namespace Pacagroup.Ecommerce.Domain.Entity
 {
-	public class Categories
+	public class Category
 	{
 
 		public int Id { get; set; }

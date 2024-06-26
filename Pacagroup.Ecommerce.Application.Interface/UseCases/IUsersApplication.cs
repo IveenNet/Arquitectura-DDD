@@ -1,12 +1,12 @@
 ﻿using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Transversal.Common;
 
-namespace Pacagroup.Ecommerce.Application.Interface
+namespace Pacagroup.Ecommerce.Application.Interface.UseCases
 {
 	public interface IUsersApplication
 	{
 
-		Response<UsersDto> Authenticate(string username, string password);
+		Response<UserDto> Authenticate(string username, string password);
 
 	}
 }

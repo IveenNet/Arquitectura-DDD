@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Pacagroup.Ecommerce.Application.DTO;
-using Pacagroup.Ecommerce.Application.Interface;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
 {
-	[Authorize]
+    [Authorize]
 	[EnableRateLimiting("fixedWindow")]
 	[Route("api/v{version:apiVersion}/[controller]")]
 	[ApiController]
@@ -29,7 +29,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
 		/// </summary>
 		/// <returns>A list of categories.</returns>
 		[HttpGet("GetAllCategories", Name = "GetAllCategoriesV2")]
-		[ProducesResponseType(typeof(IEnumerable<CustomersDto>), 200)]
+		[ProducesResponseType(typeof(IEnumerable<CustomerDto>), 200)]
 		[ProducesResponseType(400)]
 		public async Task<IActionResult> GetAllAsync()
 		{

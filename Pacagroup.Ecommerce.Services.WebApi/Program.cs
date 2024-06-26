@@ -1,5 +1,7 @@
 using Asp.Versioning.ApiExplorer;
 using HealthChecks.UI.Client;
+using Pacagroup.Ecommerce.Application.UseCases;
+using Pacagroup.Ecommerce.Persistence;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Feature;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.HeallthCheck;
@@ -42,6 +44,8 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
 	services.AddMapper();
 	services.AddFeature(configuration);
 	services.AddInjection(configuration);
+	services.AddPersistenceServices();
+	services.AddAplicationServices();
 	services.AddValidator();
 	services.AddHealthCheck(configuration);
 	services.AddWatchDog(configuration);

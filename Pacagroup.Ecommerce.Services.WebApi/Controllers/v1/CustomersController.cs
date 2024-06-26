@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pacagroup.Ecommerce.Application.DTO;
-using Pacagroup.Ecommerce.Application.Interface;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
 {
-	[Authorize]
+    [Authorize]
 	[Route("api/v{version:apiVersion}/[controller]")]
 	[ApiController]
 	//[ApiVersion("1.0")]
@@ -28,9 +28,9 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
 		/// <param name="customersDto">The customer data.</param>
 		/// <returns>Action result indicating success or failure.</returns>
 		[HttpPost(Name = "InsertCustomerV1")]
-		[ProducesResponseType(typeof(CustomersDto), 200)]
+		[ProducesResponseType(typeof(CustomerDto), 200)]
 		[ProducesResponseType(400)]
-		public IActionResult Insert([FromBody] CustomersDto customersDto)
+		public IActionResult Insert([FromBody] CustomerDto customersDto)
 		{
 			if (customersDto == null)
 			{
@@ -53,9 +53,9 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
 		/// <param name="customersDto">The customer data.</param>
 		/// <returns>Action result indicating success or failure.</returns>
 		[HttpPut("UpdateCustomer", Name = "UpdateCustomerV1")]
-		[ProducesResponseType(typeof(CustomersDto), 200)]
+		[ProducesResponseType(typeof(CustomerDto), 200)]
 		[ProducesResponseType(400)]
-		public IActionResult Update([FromBody] CustomersDto customersDto)
+		public IActionResult Update([FromBody] CustomerDto customersDto)
 		{
 			if (customersDto == null)
 			{
@@ -103,10 +103,10 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
 		/// <param name="customerId">The customer ID.</param>
 		/// <returns>The customer data.</returns>
 		[HttpGet("GetCustomer/{customerId}", Name = "GetCustomerByIdV1")]
-		[ProducesResponseType(typeof(CustomersDto), 200)]
+		[ProducesResponseType(typeof(CustomerDto), 200)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(404)]
-		public ActionResult<CustomersDto> Get(string customerId)
+		public ActionResult<CustomerDto> Get(string customerId)
 		{
 			if (string.IsNullOrEmpty(customerId))
 			{
@@ -133,7 +133,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
 		/// </summary>
 		/// <returns>A list of customers.</returns>
 		[HttpGet("GetAllCustomers", Name = "GetAllCustomersV1")]
-		[ProducesResponseType(typeof(IEnumerable<CustomersDto>), 200)]
+		[ProducesResponseType(typeof(IEnumerable<CustomerDto>), 200)]
 		[ProducesResponseType(400)]
 		public IActionResult GetAll()
 		{
@@ -157,9 +157,9 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
 		/// <param name="customersDto">The customer data.</param>
 		/// <returns>Action result indicating success or failure.</returns>
 		[HttpPost("InsertCustomerAsync", Name = "InsertCustomerAsyncV1")]
-		[ProducesResponseType(typeof(CustomersDto), 200)]
+		[ProducesResponseType(typeof(CustomerDto), 200)]
 		[ProducesResponseType(400)]
-		public async Task<IActionResult> InsertAsync([FromBody] CustomersDto customersDto)
+		public async Task<IActionResult> InsertAsync([FromBody] CustomerDto customersDto)
 		{
 			if (customersDto == null)
 			{
@@ -182,9 +182,9 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
 		/// <param name="customersDto">The customer data.</param>
 		/// <returns>Action result indicating success or failure.</returns>
 		[HttpPut("UpdateCustomerAsync", Name = "UpdateCustomerAsyncV1")]
-		[ProducesResponseType(typeof(CustomersDto), 200)]
+		[ProducesResponseType(typeof(CustomerDto), 200)]
 		[ProducesResponseType(400)]
-		public async Task<IActionResult> UpdateAsync([FromBody] CustomersDto customersDto)
+		public async Task<IActionResult> UpdateAsync([FromBody] CustomerDto customersDto)
 		{
 			if (customersDto == null)
 			{
@@ -232,7 +232,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
 		/// <param name="customerId">The customer ID.</param>
 		/// <returns>The customer data.</returns>
 		[HttpGet("GetCustomerAsync/{customerId}", Name = "GetCustomerAsyncByIdV1")]
-		[ProducesResponseType(typeof(CustomersDto), 200)]
+		[ProducesResponseType(typeof(CustomerDto), 200)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(404)]
 		public async Task<IActionResult> GetAsync(string customerId)
@@ -262,7 +262,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
 		/// </summary>
 		/// <returns>A list of customers.</returns>
 		[HttpGet("GetAllCustomersAsync", Name = "GetAllCustomersAsyncV1")]
-		[ProducesResponseType(typeof(IEnumerable<CustomersDto>), 200)]
+		[ProducesResponseType(typeof(IEnumerable<CustomerDto>), 200)]
 		[ProducesResponseType(400)]
 		public async Task<IActionResult> GetAllAsync()
 		{
