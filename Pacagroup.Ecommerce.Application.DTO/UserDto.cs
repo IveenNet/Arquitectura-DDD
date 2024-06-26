@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pacagroup.Ecommerce.Application.DTO
 {
-	public class UsersDto
+	public class UserDto
 	{
 		public int UserId { get; set; }
 		public string FirstName { get; set; }

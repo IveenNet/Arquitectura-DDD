@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Pacagroup.Ecommerce.Application.Interface;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Feature;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Injection;
