@@ -5,9 +5,7 @@ using Pacagroup.Ecommerce.Application.Interface.UseCases;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Feature;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Injection;
-using Pacagroup.Ecommerce.Services.WebApi.Modules.Mapper;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger;
-using Pacagroup.Ecommerce.Services.WebApi.Modules.Validator;
 using System.IO;
 
 [TestClass]
@@ -41,10 +39,8 @@ public class UsersApplicationTest
 
 				services.AddAuthentication(context.Configuration);
 				services.AddSwagger();
-				services.AddMapper();
 				services.AddFeature(context.Configuration);
 				services.AddInjection(context.Configuration);
-				services.AddValidator();
 				services.AddLogging();
 			});
 

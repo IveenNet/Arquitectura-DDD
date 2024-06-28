@@ -1,11 +1,11 @@
-﻿using Pacagroup.Ecommerce.Domain.Entity;
+﻿using Pacagroup.Ecommerce.Domain.Entities;
 
 namespace Pacagroup.Ecommerce.Application.Interface.Persistence
 {
-	public interface IUsersRepository : IGenericRepository<Users>
+    public interface IUsersRepository : IGenericRepository<User>
 	{
 
-		Users Authenticate(string username, string password);
+		User Authenticate(string username, string password);
 
 	}
 }

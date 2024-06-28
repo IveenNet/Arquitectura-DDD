@@ -23,11 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 		Info.md = Info.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Domain.Entity", "Pacagroup.Ecommerce.Domain.Entity\Pacagroup.Ecommerce.Domain.Entity.csproj", "{454DD06A-5207-4B43-852E-1C44B2FDFED6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Domain", "Pacagroup.Ecommerce.Domain.Entity\Pacagroup.Ecommerce.Domain.csproj", "{454DD06A-5207-4B43-852E-1C44B2FDFED6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Application.DTO", "Pacagroup.Ecommerce.Application.DTO\Pacagroup.Ecommerce.Application.DTO.csproj", "{6AE5ECEA-E92D-48AC-9E88-E8EBF30873E5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Transversal.Mapper", "Pacagroup.Ecommerce.Transversal.Mapper\Pacagroup.Ecommerce.Transversal.Mapper.csproj", "{49F87CCD-FF2B-46C0-A902-0468B09A4777}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Application.Interface", "Pacagroup.Ecommerce.Application.Interface\Pacagroup.Ecommerce.Application.Interface.csproj", "{5E6BB59A-D716-4F0A-9BB1-E628DA68BA03}"
 EndProject
@@ -66,10 +64,6 @@ Global
 		{6AE5ECEA-E92D-48AC-9E88-E8EBF30873E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AE5ECEA-E92D-48AC-9E88-E8EBF30873E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AE5ECEA-E92D-48AC-9E88-E8EBF30873E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{49F87CCD-FF2B-46C0-A902-0468B09A4777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{49F87CCD-FF2B-46C0-A902-0468B09A4777}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{49F87CCD-FF2B-46C0-A902-0468B09A4777}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{49F87CCD-FF2B-46C0-A902-0468B09A4777}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5E6BB59A-D716-4F0A-9BB1-E628DA68BA03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5E6BB59A-D716-4F0A-9BB1-E628DA68BA03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E6BB59A-D716-4F0A-9BB1-E628DA68BA03}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -106,7 +100,6 @@ Global
 		{E531303C-7072-4D42-84C5-30154A1D5359} = {1A1AE468-3CE4-4EF2-A205-FD19D1444C16}
 		{454DD06A-5207-4B43-852E-1C44B2FDFED6} = {731CF668-9321-4674-B051-519C2A998306}
 		{6AE5ECEA-E92D-48AC-9E88-E8EBF30873E5} = {193BEBE0-8389-4EE8-87F9-3B55CD3CD90C}
-		{49F87CCD-FF2B-46C0-A902-0468B09A4777} = {1A1AE468-3CE4-4EF2-A205-FD19D1444C16}
 		{5E6BB59A-D716-4F0A-9BB1-E628DA68BA03} = {193BEBE0-8389-4EE8-87F9-3B55CD3CD90C}
 		{3C7E2EBE-7130-4873-96BF-C26C5CA84FDE} = {193BEBE0-8389-4EE8-87F9-3B55CD3CD90C}
 		{1E30F366-4286-48EA-B1DD-8FD97629CEBD} = {94122402-DF24-4BDA-8B98-2359DB27877A}
