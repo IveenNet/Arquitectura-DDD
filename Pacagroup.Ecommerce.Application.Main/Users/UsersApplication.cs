@@ -6,7 +6,7 @@ using Pacagroup.Ecommerce.Application.Validatior;
 using Pacagroup.Ecommerce.Transversal.Common;
 using Pacagroup.Ecommerce.Application.UseCases.Customers;
 
-namespace Pacagroup.Ecommerce.Application.UseCases.Users
+namespace Pacagroup.Ecommerce.Application.UseCases.User
 {
     public class UsersApplication : IUsersApplication
     {

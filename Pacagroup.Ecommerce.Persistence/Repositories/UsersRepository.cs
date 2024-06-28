@@ -1,8 +1,8 @@
 ﻿using Dapper;
-using Pacagroup.Ecommerce.Domain.Entity;
 using Pacagroup.Ecommerce.Persistence.Contexts;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using System.Data;
+using Pacagroup.Ecommerce.Domain.Entities;
 
 namespace Pacagroup.Ecommerce.Persistence.Repositories
 {
@@ -15,7 +15,7 @@ namespace Pacagroup.Ecommerce.Persistence.Repositories
             _dapperContext = dapperContext;
         }
 
-        public Users Authenticate(string username, string passowrd)
+        public User Authenticate(string username, string passowrd)
         {
 
             using (var connection = _dapperContext.CreateConnection())
@@ -26,7 +26,7 @@ namespace Pacagroup.Ecommerce.Persistence.Repositories
                 parameters.Add("UserName", username);
                 parameters.Add("Password", passowrd);
 
-                var user = connection.QuerySingle<Users>(query, param: parameters, commandType: CommandType.StoredProcedure);
+                var user = connection.QuerySingle<User>(query, param: parameters, commandType: CommandType.StoredProcedure);
                 return user;
             }
 
@@ -52,52 +52,57 @@ namespace Pacagroup.Ecommerce.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Users Get(string id)
+        public User Get(string id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Users> GetAll()
+        public IEnumerable<User> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Users>> GetAllAsync()
+        public Task<IEnumerable<User>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Users> GetAllWithPagination(int pageNumber, int pageSize)
+        public IEnumerable<User> GetAllWithPagination(int pageNumber, int pageSize)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Users>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
+        public Task<IEnumerable<User>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Users> GetAsync(string id)
+        public Task<User> GetAsync(string id)
         {
             throw new NotImplementedException();
         }
 
-        public bool Insert(Users entity)
+		public Task<User> GetAsync(string id, CancellationToken cancellationToken)
+		{
+			throw new NotImplementedException();
+		}
+
+		public bool Insert(User entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> InsertAsync(Users entity)
+        public Task<bool> InsertAsync(User entity)
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(Users entity)
+        public bool Update(User entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateAsync(Users entity)
+        public Task<bool> UpdateAsync(User entity)
         {
             throw new NotImplementedException();
         }

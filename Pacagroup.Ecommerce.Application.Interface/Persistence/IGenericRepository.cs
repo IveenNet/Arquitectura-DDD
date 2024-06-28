@@ -22,6 +22,7 @@
 		public Task<bool> UpdateAsync(T entity);
 		public Task<bool> DeleteAsync(string id);
 		public Task<T> GetAsync(string id);
+		public Task<T> GetAsync(string id, CancellationToken cancellationToken);
 		public Task<IEnumerable<T>> GetAllAsync();
 		public Task<IEnumerable<T>> GetAllWithPaginationAsync(int pageNumber, int pageSize);
 		public Task<int> CountAsync();

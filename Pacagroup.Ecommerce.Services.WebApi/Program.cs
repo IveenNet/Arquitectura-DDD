@@ -6,11 +6,9 @@ using Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Feature;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.HeallthCheck;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Injection;
-using Pacagroup.Ecommerce.Services.WebApi.Modules.Mapper;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.RateLimiter;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Redis;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger;
-using Pacagroup.Ecommerce.Services.WebApi.Modules.Validator;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Watch;
 using Pacagroup.Ecommerce.Services.WebApi.Versioning;
 using WatchDog;
@@ -41,12 +39,10 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
 	services.AddAuthentication(configuration);
 	services.AddSwagger();
 	services.AddVersioning(); // Usa la extensión de versionado
-	services.AddMapper();
 	services.AddFeature(configuration);
 	services.AddInjection(configuration);
-	services.AddPersistenceServices();
+	services.AddPersistenceServices(configuration);
 	services.AddAplicationServices();
-	services.AddValidator();
 	services.AddHealthCheck(configuration);
 	services.AddWatchDog(configuration);
 	services.AddRedisCache(configuration);
