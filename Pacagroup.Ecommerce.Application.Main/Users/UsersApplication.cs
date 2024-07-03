@@ -1,40 +1,31 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Pacagroup.Ecommerce.Application.DTO;
-using Pacagroup.Ecommerce.Application.Interface.UseCases;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
-using Pacagroup.Ecommerce.Application.Validatior;
-using Pacagroup.Ecommerce.Transversal.Common;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
 using Pacagroup.Ecommerce.Application.UseCases.Customers;
+using Pacagroup.Ecommerce.Transversal.Common;
 
 namespace Pacagroup.Ecommerce.Application.UseCases.User
 {
-    public class UsersApplication : IUsersApplication
+	public class UsersApplication : IUsersApplication
     {
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IAppLogger<CustomersApplication> _logger;
-        private readonly UsersDtoValidator _validationRules;
+        private readonly ILogger<CustomersApplication> _logger;
 
-        public UsersApplication(IUnitOfWork unitOfWork, IMapper mapper, IAppLogger<CustomersApplication> appLogger, UsersDtoValidator validationRules)
+        public UsersApplication(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CustomersApplication> appLogger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _logger = appLogger;
-            _validationRules = validationRules;
         }
 
         public Response<UserDto> Authenticate(string username, string password)
         {
             var response = new Response<UserDto>();
-            var validation = _validationRules.Validate(new UserDto() { UserName = username, Password = password });
 
-            if (!validation.IsValid)
-            {
-                response.Message = "Párametros no pueden ser vacíos";
-                response.Errors = validation.Errors;
-                return response;
-            }
             try
             {
 

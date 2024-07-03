@@ -1,38 +1,49 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Pacagroup.Ecommerce.Application.Interface.UseCases;
 using Pacagroup.Ecommerce.Application.UseCases.Categories;
+using Pacagroup.Ecommerce.Application.UseCases.Common.Behaviours;
 using Pacagroup.Ecommerce.Application.UseCases.Customers;
 using Pacagroup.Ecommerce.Application.UseCases.Discounts;
 using Pacagroup.Ecommerce.Application.UseCases.User;
-using Pacagroup.Ecommerce.Application.Validatior;
 using System.Reflection;
 
 namespace Pacagroup.Ecommerce.Application.UseCases
 {
-    public static class ConfigureServices
+	public static class ConfigureServices
 	{
-
-		public static IServiceCollection AddAplicationServices(this IServiceCollection services)
+		public static IServiceCollection AddApplicationServices(this IServiceCollection services)
 		{
-			//Lo hace en tiempo de ejecucion
+			// Añadimos los validadores del ensamblado actual
+			services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+			// Añadimos MediatR y registramos los comportamientos del pipeline
+			services.AddMediatR(cfg =>
+			{
+				cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+				cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
+				cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+				cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(PerfomanceBehaviour<,>));
+			});
+
+			// Añadimos AutoMapper y registramos perfiles del ensamblado actual
 			services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-			//Customers
+			// Registramos las implementaciones de las aplicaciones
+			// Customers
 			services.AddScoped<ICustomersApplication, CustomersApplication>();
 
-			//Users
+			// Users
 			services.AddScoped<IUsersApplication, UsersApplication>();
-			services.AddTransient<UsersDtoValidator>(); //Añadimos las validaciones
 
-			//Categories
+			// Categories
 			services.AddScoped<ICategoriesApplication, CategoriesApplication>();
 
-			//Discount
+			// Discount
 			services.AddScoped<IDiscountsApplication, DiscountsApplication>();
-			services.AddTransient<DiscountDtoValidator>(); //Añadimos las validaciones
 
 			return services;
 		}
-
 	}
 }
