@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using Pacagroup.Ecommerce.Application.DTO;
+using Pacagroup.Ecommerce.Application.UseCases.Customers.Commands.CreateCustomerCommand;
+using Pacagroup.Ecommerce.Application.UseCases.Customers.Commands.UpdateCustomerCommand;
 using Pacagroup.Ecommerce.Domain.Entities;
+using Pacagroup.Ecommerce.Domain.Events;
 
 namespace Pacagroup.Ecommerce.Application.UseCases.Common.Mappings
 {
@@ -39,6 +42,10 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Common.Mappings
 				.ForMember(dest => dest.Percent, opt => opt.MapFrom(src => src.Percent))
 				.ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
 				.ReverseMap();
+
+			CreateMap<Discount, DiscountCreatedEvent>().ReverseMap();
+			CreateMap<Customer, CreateCustomerCommand>().ReverseMap();
+			CreateMap<Customer, UpdateCustomerCommand>().ReverseMap();
 		}
 	}
 }

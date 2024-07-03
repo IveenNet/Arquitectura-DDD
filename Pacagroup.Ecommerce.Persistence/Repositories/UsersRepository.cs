@@ -15,7 +15,7 @@ namespace Pacagroup.Ecommerce.Persistence.Repositories
             _dapperContext = dapperContext;
         }
 
-        public User Authenticate(string username, string passowrd)
+        public async Task<User> Authenticate(string username, string passowrd)
         {
 
             using (var connection = _dapperContext.CreateConnection())
@@ -26,7 +26,7 @@ namespace Pacagroup.Ecommerce.Persistence.Repositories
                 parameters.Add("UserName", username);
                 parameters.Add("Password", passowrd);
 
-                var user = connection.QuerySingle<User>(query, param: parameters, commandType: CommandType.StoredProcedure);
+                var user = await connection.QuerySingleOrDefaultAsync<User>(query, param: parameters, commandType: CommandType.StoredProcedure);
                 return user;
             }
 

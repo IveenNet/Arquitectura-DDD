@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Pacagroup.Ecommerce.Application.DTO;
+using Pacagroup.Ecommerce.Application.Interface.Infrastructure;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Application.Interface.UseCases;
-using Pacagroup.Ecommerce.Application.Validatior;
 using Pacagroup.Ecommerce.Domain.Entities;
+using Pacagroup.Ecommerce.Domain.Events;
 using Pacagroup.Ecommerce.Transversal.Common;
 
 namespace Pacagroup.Ecommerce.Application.UseCases.Discounts
@@ -12,22 +13,27 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Discounts
 	{
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly IMapper _mapper;
-		private readonly DiscountDtoValidator _discountDtoValidator;
+		private readonly IEventBus _eventBus;
 
-		public DiscountsApplication(IUnitOfWork unitOfWork, IMapper mapper, DiscountDtoValidator discountDtoValidator)
+		public DiscountsApplication(IUnitOfWork unitOfWork, IMapper mapper, IEventBus eventBus)
 		{
 			_unitOfWork = unitOfWork;
 			_mapper = mapper;
-			_discountDtoValidator = discountDtoValidator;
+			_eventBus = eventBus;
 		}
 
 		public async Task<Response<bool>> CreateAsync(DiscountDto discountDto, CancellationToken cancellationToken = default)
 		{
 			return await HandleRequest(async () =>
 			{
-				await ValidateDiscountDtoAsync(discountDto, cancellationToken);
+				//await ValidateDiscountDtoAsync(discountDto, cancellationToken);
 				var discount = _mapper.Map<Discount>(discountDto);
 				await _unitOfWork.Discounts.InsertAsync(discount);
+
+				//Publicamos el Evento
+				var discountEvent = _mapper.Map<DiscountCreatedEvent>(discount);
+				_eventBus.Publish(discountEvent);
+
 				return await _unitOfWork.Save(cancellationToken) > 0;
 			});
 		}
@@ -36,7 +42,7 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Discounts
 		{
 			return await HandleRequest(async () =>
 			{
-				await ValidateDiscountDtoAsync(discountDto, cancellationToken);
+				//await ValidateDiscountDtoAsync(discountDto, cancellationToken);
 				var discount = _mapper.Map<Discount>(discountDto);
 				await _unitOfWork.Discounts.UpdateAsync(discount);
 				return await _unitOfWork.Save(cancellationToken) > 0;
@@ -70,12 +76,13 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Discounts
 			});
 		}
 
+		/*
 		private async Task ValidateDiscountDtoAsync(DiscountDto discountDto, CancellationToken cancellationToken)
 		{
 			var validation = await _discountDtoValidator.ValidateAsync(discountDto, cancellationToken);
 			if (!validation.IsValid)
 				throw new ValidationException("Errores de Validacion");
-		}
+		}*/
 
 		private async Task<Response<T>> HandleRequest<T>(Func<Task<T>> action)
 		{
@@ -95,6 +102,39 @@ namespace Pacagroup.Ecommerce.Application.UseCases.Discounts
 				response.Message = ex.Message;
 			}
 			return response;
+		}
+
+		public async Task<ResponsePagination<IEnumerable<DiscountDto>>> GetAllWithPaginationAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
+		{
+
+			var response = new ResponsePagination<IEnumerable<DiscountDto>>();
+
+			try
+			{
+				var count = await _unitOfWork.Discounts.CountAsync();
+				var discounts = await _unitOfWork.Discounts.GetAllWithPaginationAsync(pageNumber, pageSize);
+				response.Data = _mapper.Map<IEnumerable<DiscountDto>>(discounts);
+
+				if (response.Data != null)
+				{
+					response.PageNumber = pageNumber;
+					response.TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+					response.TotalCount = count;
+
+					response.IsSuccess = true;
+					response.Message = "Consulta OK";
+				}
+
+			}
+			catch (Exception ex)
+			{
+
+				response.Message = ex.Message;
+
+			}
+
+			return response;
+
 		}
 	}
 

@@ -1,6 +1,4 @@
-﻿using FluentValidation.Results;
-
-namespace Pacagroup.Ecommerce.Transversal.Common
+﻿namespace Pacagroup.Ecommerce.Transversal.Common
 {
 	public class ResponseGeneric<T>
 	{
@@ -9,6 +7,6 @@ namespace Pacagroup.Ecommerce.Transversal.Common
 		public bool IsSuccess { get; set; }
 		public string Message { get; set; }
 
-		public IEnumerable<ValidationFailure> Errors { get; set; }
+		public IEnumerable<BaseError> Errors { get; set; }
 	}
 }

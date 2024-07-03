@@ -155,6 +155,27 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
 			return BadRequest(response.Message);
 		}
 
+		/// <summary>
+		/// Gets all discounts but now with Pagination.
+		/// </summary>
+		/// <param name="pageNumber">Number of the page.</param>
+		/// <param name="pageSize">Number of discounts to display.</param>
+		/// <returns>A list of discounts.</returns>
+		[HttpGet("GetAllDiscountsWithPaginationAsync", Name = "GetAllDiscountsWithPaginationAsync")]
+		[ProducesResponseType(typeof(IEnumerable<DiscountDto>), 200)]
+		[ProducesResponseType(400)]
+		public async Task<IActionResult> GetAllWithPaginationAsync([FromQuery] int pageNumber, [FromQuery] int pageSize)
+		{
+			var response = await _discountsApplication.GetAllWithPaginationAsync(pageNumber, pageSize);
+
+			if (response.IsSuccess)
+			{
+				return Ok(response);
+			}
+
+			return BadRequest(response.Message);
+		}
+
 
 		#endregion
 

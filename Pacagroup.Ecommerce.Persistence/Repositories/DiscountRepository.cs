@@ -2,6 +2,7 @@
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Domain.Entities;
 using Pacagroup.Ecommerce.Persistence.Contexts;
+using Pacagroup.Ecommerce.Persistence.Mocks;
 
 namespace Pacagroup.Ecommerce.Persistence.Repositories
 {
@@ -61,11 +62,6 @@ namespace Pacagroup.Ecommerce.Persistence.Repositories
 
 		#region Metodos Asincronos
 
-		public Task<int> CountAsync()
-		{
-			throw new NotImplementedException();
-		}
-
 		public Task<IEnumerable<Discount>> GetAllAsync()
 		{
 			throw new NotImplementedException();
@@ -78,9 +74,21 @@ namespace Pacagroup.Ecommerce.Persistence.Repositories
 				.ToListAsync(cancellationToken);
 		}
 
-		public Task<IEnumerable<Discount>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
+		public async Task<IEnumerable<Discount>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
 		{
-			throw new NotImplementedException();
+
+			var faker = new DiscountGetAllWithPaginationAsyncBogusCongif();
+			var result = await Task.Run(() => faker.Generate(100));
+
+			return result.Skip((pageNumber - 1)*pageSize).Take(pageSize);
+
+		}
+
+		public async Task<int> CountAsync()
+		{
+
+			return await Task.Run(() => 1000);
+
 		}
 
 		public Task<Discount> GetAsync(string id)
